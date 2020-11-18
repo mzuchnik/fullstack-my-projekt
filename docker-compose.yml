@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  spring-fullstack-projekt:
+    image: #Wstawic obraz z dockerhub'a
+    restart: on-failure
+    ports:
+      - 8080:8080
+    networks:
+      bridgezadanie1:
+        ipv4_address: 10.0.10.2
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-dbms:3306/MyAppDb?serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: awojtowicz
+      SPRING_DATASOURCE_PASSWORD: awojtowicz
+    depends_on:
+      - mysql-dbms
+
+  mysql-dbms:
+    image: mysql:8
+    container_name: "Full2020-86447"
+    networks:
+      bridgezadanie1:
+        ipv4_address: 10.0.10.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=MyAppDb
+      - MYSQL_USER=awojtowicz
+      - MYSQL_PASSWORD=awojtowicz
+    ports:
+    - 3306:3306
+
+networks:
+  bridgezadanie1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.10.0/16

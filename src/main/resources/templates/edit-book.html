@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit book</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<div class="container">
+    <div class="title">Edit Book: <span th:text="${editBook.id}"></span></div>
+
+    <div id="add-book-form" class="add-book-container">
+        <form th:object="${editBook}" th:action="@{/processEdit}" method="post" class="add-book-form">
+            <input th:field="*{id}" style="visibility: hidden"><br>
+            <label class="input-label" for="title">Title: </label>
+            <input class="input-add" type="text" id="title" th:field="*{title}"><br>
+            <label class="input-label" for="author">Author: </label>
+            <input class="input-add"type="text" id="author" th:field="*{author}"><br>
+            <label class="input-label" for="rate">Rate: </label>
+            <input class="input-add"type="text" id="rate" th:field="*{rate}"><br>
+            <label class="input-label" for="currentPage">Current Page: </label>
+            <input class="input-add"type="text" id="currentPage" th:field="*{currentPage}"><br>
+            <input class="input-submit"type="submit" value="Edit"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>My Books</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="title">My books:</div>
+
+    <div class="books">
+        <table>
+            <tr class="books-label">
+                <td>Author: </td>
+                <td>Title: </td>
+                <td>Rate: </td>
+                <td>Current page: </td>
+                <td>Edit: </td>
+                <td>Delete: </td>
+            </tr>
+            <tr class="book-row" th:each="book : ${bookList}">
+                <td class="book-item" th:text="${book.getAuthor()}"></td>
+                <td class="book-item" th:text="${book.getTitle()}"></td>
+                <td class="book-item" th:text="${book.getRate()}"></td>
+                <td class="book-item" th:text="${book.getCurrentPage()}"></td>
+                <td class="book-item"><a class="edit-button" th:href="@{/{id}/edit(id = ${book.getId()})}">Edit</a></td>
+                <td class="book-item"><a class="delete-button"
+                                         th:href="@{/{id}/delete(id = ${book.getId()})}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+    <button id="add-book-button" class="add-book-button">Show add book form</button>
+    <div id="add-book-form" class="add-book-container hidden">
+        <form th:object="${newBook}" th:action="@{/}" method="post" class="add-book-form">
+            <label class="input-label" for="title">Title: </label>
+            <input class="input-add" type="text" id="title" th:field="*{title}"><br>
+            <label class="input-label" for="author">Author: </label>
+            <input class="input-add"type="text" id="author" th:field="*{author}"><br>
+            <label class="input-label" for="rate">Rate: </label>
+            <input class="input-add"type="text" id="rate" th:field="*{rate}"><br>
+            <label class="input-label" for="currentPage">Current Page: </label>
+            <input class="input-add"type="text" id="currentPage" th:field="*{currentPage}"><br>
+            <input class="input-submit"type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
